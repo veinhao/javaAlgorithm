@@ -1,4 +1,4 @@
-//KMP算法
+//KMP字符串搜索算法
 
 public class KMP {
 	public static int KMP1(String text,String pattern) {
