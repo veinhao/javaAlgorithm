@@ -1,4 +1,4 @@
-package �㷨;
+//KMP算法
 
 public class KMP {
 	public static int KMP1(String text,String pattern) {
