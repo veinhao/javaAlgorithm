@@ -2,23 +2,23 @@
 
 public class KMP {
 	public static int KMP1(String text,String pattern) {
-		int ires=0,i=0,j=0;
+		if(pattern.length()==0) return 0;
+        if(pattern.length()>text.length()) return -1;
+        int ires=0,i=0,j=0;
 		int[] next=new int[pattern.length()];
 		next=computePattern(pattern);
 		while(i<text.length()&&j<pattern.length()) {
 			if(text.charAt(i)==pattern.charAt(j)) {
+				ires=i-j;
 				++j;
 				++i;
 			} 
-			if(i<text.length()&&j<pattern.length()&&text.charAt(i)!=pattern.charAt(j)){
-				j=next[j-1];
-				if(text.charAt(i)==pattern.charAt(j)) {
-					ires=i-j;
+			else{
+				if(j==0) {
 					++i;
-					++j;
-				}else {
-					ires=++i;
 				}
+				else j=next[j-1];
+				
 			}
 		}
 		if(j!=pattern.length()) ires=-1;
@@ -32,21 +32,22 @@ public class KMP {
 		if(pattern.length()==1) return res;
 		
 		int i=0,j=1;
-		
-		for(int k=1;k<pattern.length();k++) {
+		int k=1;
+		while(k<pattern.length()){
 			if(pattern.charAt(i)==pattern.charAt(j)) {
-				res[k]=i+1;
+				res[k++]=i+1;
 				++i;
+				++j;
 			}else {
 				if(i==0) {
-					res[k]=0;
+					res[k++]=0;
+					++j;
 				}else {
 					i=res[i-1];
-					if(pattern.charAt(i)==pattern.charAt(j)) res[k]=i+1;
-					else res[k]=0;
 				}
+				
 			}
-			++j;
+			
 		}
 		return res;
 	}
